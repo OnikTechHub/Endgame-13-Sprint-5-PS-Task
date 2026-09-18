@@ -54,3 +54,36 @@ var search = function(nums, target) {
 let numsArr = [-1, 0, 3, 5, 9, 12];
 let targetVal = 9;
 console.log("Expected Output: 4");
+
+
+
+
+// 03. Search Insert Position
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var searchInsert = function(nums, target) {
+    let left = 0;
+    let right = nums.length - 1;
+
+    while (left <= right) {
+        let mid = Math.floor((left + right) / 2);
+
+        if (nums[mid] === target) {
+            return mid;
+        } else if (nums[mid] < target) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+
+    return left; 
+};
+
+let numsArr3 = [1, 3, 5, 6];
+let targetVal3 = 5;
+console.log("Expected Output: 2");
