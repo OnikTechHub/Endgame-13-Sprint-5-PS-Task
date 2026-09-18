@@ -2,9 +2,10 @@
 
 /**
  * @param {number[]} nums
- * @return {number}
+ * @param {number} k
+ * @return {boolean}
  */
-var removeDuplicates = function(nums) {
+var checkSubarraySum = function(nums, k) {
     if (nums.length === 0) return 0;
     
     let i = 0;
@@ -14,11 +15,42 @@ var removeDuplicates = function(nums) {
             nums[i] = nums[j];
         }
     }
-    return i + 1; 
+    return i + 1;
 };
 
-
 let nums = [1, 1, 2];
-let uniqueCount = removeDuplicates(nums);
-
+let result = checkSubarraySum(nums);
 console.log("Expected Output: 2");
+
+
+
+
+// 02. Binary Search
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var search = function(nums, target) {
+    let left = 0;
+    let right = nums.length - 1;
+
+    while (left <= right) {
+        let mid = Math.floor((left + right) / 2);
+
+        if (nums[mid] === target) {
+            return mid; 
+        } else if (nums[mid] < target) {
+            left = mid + 1; 
+        } else {
+            right = mid - 1; 
+        }
+    }
+
+    return -1;
+};
+
+let numsArr = [-1, 0, 3, 5, 9, 12];
+let targetVal = 9;
+console.log("Expected Output: 4");
