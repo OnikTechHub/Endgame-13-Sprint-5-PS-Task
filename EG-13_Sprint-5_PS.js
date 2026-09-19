@@ -171,3 +171,34 @@ function treeToArray(node) {
 }
 
 console.log("Expected Output: [4, 7, 2, 9, 6, 3, 1]");
+
+
+
+
+// 06. Product of Array Except Self
+
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var productExceptSelf = function(nums) {
+    let n = nums.length;
+    let res = new Array(n);
+
+    
+    res[0] = 1;
+    for (let i = 1; i < n; i++) {
+        res[i] = res[i - 1] * nums[i - 1];
+    }
+    
+    let rightProduct = 1;
+    for (let i = n - 1; i >= 0; i--) {
+        res[i] = res[i] * rightProduct;
+        rightProduct *= nums[i];
+    }
+
+    return res;
+};
+
+let nums6 = [1, 2, 3, 4];
+console.log("Expected Output: [24, 12, 8, 6]");
