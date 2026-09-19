@@ -82,9 +82,6 @@ let numsArr3 = [1, 3, 5, 6];
 let targetVal3 = 5;
 console.log("Expected Output: 2");
 
-
-
-
 // 04. Maximum Depth of Binary Tree
 
 /**
@@ -92,10 +89,10 @@ console.log("Expected Output: 2");
  * @return {number}
  */
 var maxDepth = function (root) {
-  if (!root) return 0; 
-  let leftDepth = maxDepth(root.left); 
-  let rightDepth = maxDepth(root.right); 
-  return Math.max(leftDepth, rightDepth) + 1; 
+  if (!root) return 0;
+  let leftDepth = maxDepth(root.left);
+  let rightDepth = maxDepth(root.right);
+  return Math.max(leftDepth, rightDepth) + 1;
 };
 
 function TreeNode(val, left, right) {
@@ -111,3 +108,66 @@ root.right.left = new TreeNode(15);
 root.right.right = new TreeNode(7);
 
 console.log("Expected Output: 3");
+
+
+
+// 05. Invert Binary Tree
+
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+var invertTree = function (root) {
+  if (root === null) {
+    return null;
+  }
+
+  let temp = root.left;
+  root.left = root.right;
+  root.right = temp;
+
+  invertTree(root.left);
+  invertTree(root.right);
+
+  return root;
+};
+
+if (typeof TreeNode === "undefined") {
+  function TreeNode(val, left, right) {
+    this.val = val === undefined ? 0 : val;
+    this.left = left === undefined ? null : left;
+    this.right = right === undefined ? null : right;
+  }
+}
+
+let rootTree = new TreeNode(4);
+rootTree.left = new TreeNode(2);
+rootTree.right = new TreeNode(7);
+rootTree.left.left = new TreeNode(1);
+rootTree.left.right = new TreeNode(3);
+rootTree.right.left = new TreeNode(6);
+rootTree.right.right = new TreeNode(9);
+
+let invertedRoot = invertTree(rootTree);
+
+function treeToArray(node) {
+  if (!node) return [];
+  let result = [];
+  let queue = [node];
+  while (queue.length > 0) {
+    let curr = queue.shift();
+    if (curr) {
+      result.push(curr.val);
+      queue.push(curr.left);
+      queue.push(curr.right);
+    } else {
+      result.push(null);
+    }
+  }
+  while (result[result.length - 1] === null) {
+    result.pop();
+  }
+  return result;
+}
+
+console.log("Expected Output: [4, 7, 2, 9, 6, 3, 1]");
