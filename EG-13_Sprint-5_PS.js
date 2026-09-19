@@ -202,3 +202,97 @@ var productExceptSelf = function(nums) {
 
 let nums6 = [1, 2, 3, 4];
 console.log("Expected Output: [24, 12, 8, 6]");
+
+
+
+// 07. Rotate Array
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {void}
+ */
+var rotate = function(nums, k) {
+    k = k % nums.length;
+    
+    function reverse(arr, start, end) {
+        while (start < end) {
+            let temp = arr[start];
+            arr[start] = arr[end];
+            arr[end] = temp;
+            start++;
+            end--;
+        }
+    }
+    
+    reverse(nums, 0, nums.length - 1);
+    reverse(nums, 0, k - 1);
+    reverse(nums, k, nums.length - 1);
+};
+
+
+let nums7 = [1, 2, 3, 4, 5, 6, 7];
+let kVal = 3;
+rotate(nums7, kVal);
+
+console.log("Expected Output: [5, 6, 7, 1, 2, 3, 4]");
+
+
+
+
+// 08. Min Stack
+
+
+/**
+ * @return {void}
+ */
+var MinStack = function() {
+    this.stack = [];
+    this.minStack = []; 
+};
+
+/** 
+ * @param {number} val
+ * @return {void}
+ */
+MinStack.prototype.push = function(val) {
+    this.stack.push(val);
+   
+    if (this.minStack.length === 0 || val <= this.minStack[this.minStack.length - 1]) {
+        this.minStack.push(val);
+    }
+};
+
+/**
+ * @return {void}
+ */
+MinStack.prototype.pop = function() {
+    let popped = this.stack.pop();
+    if (popped === this.minStack[this.minStack.length - 1]) {
+        this.minStack.pop();
+    }
+};
+
+/**
+ * @return {number}
+ */
+MinStack.prototype.top = function() {
+    return this.stack[this.stack.length - 1];
+};
+
+/**
+ * @return {number}
+ */
+MinStack.prototype.getMin = function() {
+    return this.minStack[this.minStack.length - 1];
+};
+
+let minStack = new MinStack();
+minStack.push(-2);
+minStack.push(0);
+minStack.push(-3);
+
+let output1 = minStack.getMin();
+minStack.pop();
+let output2 = minStack.getMin(); 
+
+console.log("Expected Output: [-3, -2]");
